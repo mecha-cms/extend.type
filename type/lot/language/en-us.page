@@ -1,0 +1,13 @@
+---
+type: YAML
+...
+
+o_type:
+  Audio: Audio
+  Comic: Comic
+  Gallery: Gallery
+  Image: Image
+  Link: Link
+  Log: Status
+  Quote: Quote
+  Video: Video

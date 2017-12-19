@@ -1,0 +1,13 @@
+---
+type: YAML
+...
+
+o_type:
+  Audio: Audio
+  Comic: Komik
+  Gallery: Galeri
+  Image: Gambar
+  Link: Tautan
+  Log: Status
+  Quote: Kutipan
+  Video: Video
