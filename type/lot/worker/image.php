@@ -9,6 +9,9 @@ if (strpos($content, '<img ') !== false && strpos($content, ' src="') !== false)
         if (!$caption && !empty($img[2]['alt'])) {
             $caption = $alt = $img[2]['alt'];
         }
+        if (isset($img[2]['id'])) {
+            $id = $img[2]['id'];
+        }
         $src = isset($img[2]['src']) ? $img[2]['src'] : null;
     }
 // Search for the first `<a>` tag…
@@ -43,7 +46,7 @@ if ($caption && strpos($caption, "\n") !== false) {
 
 // Wrap in a figure tag…
 $alt = $alt ?: To::text(Path::N($src));
-$content  = '<figure class="image">';
+$content  = '<figure class="image" id="' . $id . '">';
 $content .= "\n" . DENT . '<img alt="' . $alt . '" src="' . To::thumbnail($src, $state['width'], $state['height']) . "\">\n";
 $content .= $caption ? DENT . '<figcaption class="caption">' . $caption . "</figcaption>\n" : "";
 $content .= '</figure>';

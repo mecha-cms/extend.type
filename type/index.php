@@ -8,16 +8,20 @@ function fn_type($content, $lot = [], $that = null, $key = null) {
     } else if (!$type = File::exist(__DIR__ . DS . 'lot' . DS . 'worker' . DS . ($t = __c2f__($lot['type'])) . '.php')) {
         return $content;
     }
-    // Trim white-space(s) and normalize line-break…
-    $content = n(trim($content));
-    // Require the filter…
+    $content = n(trim($content)); // Trim white-space(s) and normalize line-break…
+    $id = $t . ':' . (isset($lot['id']) ? $lot['id'] : time());
     $state = Extend::state(__DIR__, $t);
     $f = isset($lot['path']) ? Path::F($lot['path']) : X;
-    $image = $that->get('image');
-    require $type;
+    $image = isset($lot['image']) ? $lot['image'] : null;
+    require $type; // Require the filter…
     return str_replace("\n", N, $content);
 }
 
 Hook::set('page.content', 'fn_type', 2.1);
 
-Asset::set(__DIR__ . DS . 'lot' . DS . 'asset' . DS . 'css' . DS . 'type.min.css');
+$s = __DIR__ . DS . 'lot' . DS . 'asset' . DS . 'css' . DS;
+Asset::set([
+    $s . 'audio.min.css',
+    $s . 'gallery.min.css',
+    $s . 'video.min.css'
+]);

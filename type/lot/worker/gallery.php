@@ -50,7 +50,7 @@ if (!$src) {
 }
 
 // Wrap in a figure tag…
-$content = '<section class="gallery p">';
+$content = '<section class="gallery p" id="' . $id . '">';
 foreach (array_unique($src) as $k => $v) {
     $t = To::text(Path::N($v));
     $alt[$k] = isset($alt[$k]) && $alt[$k] ? $alt[$k] : $t;

@@ -17,4 +17,4 @@ if (strpos($content, '://') !== false || strpos($content, 'data:image/') !== fal
 
 // Convert double line break into paragraph tag(s), single line break into break tag(s)…
 $content = str_replace(["\n\n", "\n", '</p>'], ['</p><p>', "<br>\n" . DENT, "</p>\n"], $content);
-$content = '<p>' . $content . '</p>';
+$content = '<div class="log" id="' . $id . '"><p>' . $content . '</p></div>';

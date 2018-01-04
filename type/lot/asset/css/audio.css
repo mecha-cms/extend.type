@@ -1,0 +1,19 @@
+.audio {
+  display:block;
+  width:100%;
+  height:auto;
+  margin-right:0;
+  margin-left:0;
+  padding:0;
+  position:relative;
+  background:none no-repeat 50% 50%;
+  background-size:100% auto;
+}
+.audio audio {
+  display:block;
+  margin:0;
+  padding:0;
+  border:0;
+  width:100%;
+  height:auto;
+}

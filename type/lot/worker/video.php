@@ -8,12 +8,16 @@ if (strpos($content, '<video ') !== false && strpos($content, ' src="') !== fals
         if (isset($video[2]['poster'])) {
             $image = $video[2]['poster'];
         }
+        if (isset($video[2]['id'])) {
+            $id = $video[2]['id'];
+        }
         if (isset($video[2]['class[]'])) {
             $class = (array) $video[2]['class[]'];
         }
         if (isset($video[2]['src'])) {
             $src[] = ($s = $video[2]['src']);
             $type[] = isset($video[2]['type']) ? $video[2]['type'] : 'video/' . Anemon::alter(Path::X($s), [
+                'mov' => 'mp4',
                 'ogv' => 'ogg'
             ]);
         }
@@ -23,6 +27,7 @@ if (strpos($content, '<video ') !== false && strpos($content, ' src="') !== fals
                 if (isset($source[2]['src'])) {
                     $src[] = ($s = $source[2]['src']);
                     $type[] = isset($source[2]['type']) ? $source[2]['type'] : 'video/' . Anemon::alter(Path::X($s), [
+                        'mov' => 'mp4',
                         'ogv' => 'ogg'
                     ]);
                 }
@@ -36,12 +41,13 @@ if (strpos($content, '<video ') !== false && strpos($content, ' src="') !== fals
             $a = HTML::apart($v);
             $s = isset($a[2]['href']) ? $a[2]['href'] : null;
             $x = Path::X($s);
-            if (strpos($s, 'data:video/') !== 0 && strpos(',' . MEDIA_X . ',', ',' . $x . ',') === false) {
+            if (strpos($s, 'data:video/') !== 0 && strpos(',' . VIDEO_X . ',', ',' . $x . ',') === false) {
                 $s = null; // Is not an audio/video URL, skip!
             }
             if (isset($s)) {
                 $src[] = $s;
                 $type[] = 'video/' . Anemon::alter($x, [
+                    'mov' => 'mp4',
                     'ogv' => 'ogg'
                 ]);
             }
@@ -49,10 +55,11 @@ if (strpos($content, '<video ') !== false && strpos($content, ' src="') !== fals
     }
 // Search for link text…
 } else if (strpos($content, 'data:video/') !== false || strpos($content, '://') !== false) {
-    if (preg_match_all('#\b(?:https?://[^\s<>]+\.(?:' . str_replace(',', '|', MEDIA_X) . ')|data:video/[^\s<>]+;base64,[^\s<>]+)\b#i', $content, $m)) {
+    if (preg_match_all('#\b(?:https?://[^\s<>]+\.(?:' . str_replace(',', '|', VIDEO_X) . ')|data:video/[^\s<>]+;base64,[^\s<>]+)\b#i', $content, $m)) {
         $src = $m[0];
         foreach ($src as $v) {
             $type[] = 'video/' . Anemon::alter(Path::X($v), [
+                'mov' => 'mp4',
                 'ogv' => 'ogg'
             ]);
         }
@@ -67,11 +74,11 @@ if (!$src) {
 // Wrap in a `<video>` tag…
 $src = array_unique($src);
 $type = array_unique($type);
-$class = array_unique(array_merge(['video', 'p'], $class));
-$content  = '<section class="' . implode(' ', $class) . '">';
-$content .= "\n" . DENT . '<video' . ($image ? ' poster="' . $image . '"' : "") . ' controls>';
+$content  = '<section class="video p" id="' . $id . '">';
+$content .= "\n" . DENT . '<video' . ($class ? ' class="' . implode(' ', $class) . '"' : "") . ($image ? ' poster="' . $image . '"' : "") . ' controls>';
 foreach ($src as $k => $v) {
     $content .= "\n" . DENT . DENT . '<source src="' . $v . '"' . (isset($type[$k]) ? ' type="' . $type[$k] . '"' : "") . '>';
 }
+$content .= "\n" . DENT . DENT . '<p>Your browser doesn&#x2019;t support HTML5 video. Here is a <a href="' . $src[0] . '">link to the video</a> instead.</p>';
 $content .= "\n" . DENT . "</video>\n";
 $content .= '</section>';
