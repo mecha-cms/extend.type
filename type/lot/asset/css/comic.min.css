@@ -1,0 +1,1 @@
+.comic figure,.comic figure img,.comic figure+p{display:block;margin:0 auto;padding:0;background:0 0;border:0}.comic figure figcaption{display:none}.comic figure+p:after{content:"";display:table;clear:both}.comic figure+p{margin-top:1em;text-align:center}.comic .a-previous{float:left}.comic .a-next{float:right}

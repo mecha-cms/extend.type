@@ -1,6 +1,14 @@
 <?php
 
 return [
+    'comic' => [
+        'a' => [
+            'step' => true,
+            'previous' => true,
+            'next' => true
+        ],
+        'q' => 'page'
+    ],
     'gallery' => [
         'width' => 400,
         'height' => 400

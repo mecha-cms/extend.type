@@ -8,6 +8,7 @@ function fn_type($content, $lot = [], $that = null, $key = null) {
     } else if (!$type = File::exist(__DIR__ . DS . 'lot' . DS . 'worker' . DS . ($t = __c2f__($lot['type'])) . '.php')) {
         return $content;
     }
+    extract(Lot::get(null, [])); // Inherit global variable(s)…
     $content = n(trim($content)); // Trim white-space(s) and normalize line-break…
     $id = $t . ':' . (isset($lot['id']) ? $lot['id'] : time());
     $state = Extend::state(__DIR__, $t);
@@ -22,6 +23,7 @@ Hook::set('page.content', 'fn_type', 2.1);
 $s = __DIR__ . DS . 'lot' . DS . 'asset' . DS . 'css' . DS;
 Asset::set([
     $s . 'audio.min.css',
+    $s . 'comic.min.css',
     $s . 'gallery.min.css',
     $s . 'video.min.css'
 ]);
