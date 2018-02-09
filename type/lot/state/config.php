@@ -3,15 +3,15 @@
 return [
     'comic' => [
         'a' => [
-            'step' => true,
             'previous' => true,
+            'range' => 5,
             'next' => true
         ],
         'q' => 'page'
     ],
     'gallery' => [
         'width' => 400,
-        'height' => 400
+        'height' => null // auto
     ],
     'image' => [
         'width' => 600,

@@ -19,3 +19,8 @@
 }
 .comic .a-previous {float:left}
 .comic .a-next {float:right}
+.comic .image-0 {
+  background:#aaa;
+  color:#fff;
+  padding:50% 1em;
+}
