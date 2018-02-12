@@ -70,11 +70,11 @@ if ($i = Request::get($state['q'], 1)) {
             }
         }
         if (!empty($state['a']['range'])) {
-            $d = (int) floor($state['a']['range'] / 2);
+            $d = $state['a']['range'] - 1;
             $k = count($src);
-            if ($i - $d > $d - 1) {
+            if ($i - $d > 1) {
                 $content .= ' <a class="a-step a-step:1" href="' . $url->current . HTTP::query([$state['q'] => 1]) . '" rel="prev">1</a>';
-                if ($i - $d > $d) {
+                if ($i - $d > 0) {
                     $content .= ' <span class="s">&#x2026;</span>';
                 }
             }

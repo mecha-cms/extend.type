@@ -4,7 +4,7 @@ return [
     'comic' => [
         'a' => [
             'previous' => true,
-            'range' => 5,
+            'range' => 3,
             'next' => true
         ],
         'q' => 'page'
