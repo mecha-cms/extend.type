@@ -74,7 +74,7 @@ if ($i = Request::get($state['q'], 1)) {
             $k = count($src);
             if ($i - $d > 1) {
                 $content .= ' <a class="a-step a-step:1" href="' . $url->current . HTTP::query([$state['q'] => 1]) . '" rel="prev">1</a>';
-                if ($i - $d > 0) {
+                if ($i - $d > 2) {
                     $content .= ' <span class="s">&#x2026;</span>';
                 }
             }
