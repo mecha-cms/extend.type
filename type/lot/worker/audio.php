@@ -10,7 +10,8 @@ if (strpos($content, '<audio ') !== false && strpos($content, ' src="') !== fals
         }
         if (isset($audio[2]['src'])) {
             $src[] = ($s = $audio[2]['src']);
-            $type[] = isset($audio[2]['type']) ? $audio[2]['type'] : 'audio/' . Path::X($s);
+            $x = Path::X($s);
+            $type[] = isset($audio[2]['type']) ? $audio[2]['type'] : (isset($state['mime'][$x]) ? $state['mime'][$x] : 'audio/' . $x);
         }
         if (isset($audio[2]['class[]'])) {
             $class = (array) $audio[2]['class[]'];
@@ -20,9 +21,8 @@ if (strpos($content, '<audio ') !== false && strpos($content, ' src="') !== fals
                 $source = HTML::apart($v);
                 if (isset($source[2]['src'])) {
                     $src[] = ($s = $source[2]['src']);
-                    $type[] = isset($source[2]['type']) ? $source[2]['type'] : 'audio/' . Anemon::alter(Path::X($s), [
-                        'mp3' => 'mpeg'
-                    ]);
+                    $x = Path::X($s);
+                    $type[] = isset($source[2]['type']) ? $source[2]['type'] : (isset($state['mime'][$x]) ? $state['mime'][$x] : 'audio/' . $x);
                 }
             }
         }
@@ -39,9 +39,7 @@ if (strpos($content, '<audio ') !== false && strpos($content, ' src="') !== fals
             }
             if (isset($s)) {
                 $src[] = $s;
-                $type[] = 'audio/' . Anemon::alter($x, [
-                    'mp3' => 'mpeg'
-                ]);
+                $type[] = isset($state['mime'][$x]) ? $state['mime'][$x] : 'audio/' . $x;
             }
         }
     }
@@ -50,9 +48,8 @@ if (strpos($content, '<audio ') !== false && strpos($content, ' src="') !== fals
     if (preg_match_all('#\b(?:https?://[^\s<>]+\.(?:' . str_replace(',', '|', AUDIO_X) . ')|data:audio/[^\s<>]+;base64,[^\s<>]+)\b#i', $content, $m)) {
         $src = $m[0];
         foreach ($src as $v) {
-            $type[] = 'audio/' . Anemon::alter(Path::X($v), [
-                'mp3' => 'mpeg'
-            ]);
+            $x = Path::X($v);
+            $type[] = isset($state['mime'][$x]) ? $state['mime'][$x] : 'audio/' . $x;
         }
     }
 }
@@ -66,11 +63,11 @@ if (!$src) {
 $src = array_unique($src);
 $type = array_unique($type);
 $class = array_unique(array_merge(['audio', 'p'], $class));
-$content  = '<section class="audio p" id="' . $id . '">';
+$content  = '<div class="audio p" id="' . $id . '">';
 $content .= "\n" . DENT . '<audio' . ($class ? ' class="' . implode(' ', $class) . '"' : "") . ' controls>';
 foreach ($src as $k => $v) {
     $content .= "\n" . DENT . DENT . '<source src="' . $v . '"' . (isset($type[$k]) ? ' type="' . $type[$k] . '"' : "") . '>';
 }
 $content .= "\n" . DENT . DENT . '<p>Your browser doesn&#x2019;t support HTML5 audio. Here is a <a href="' . $src[0] . '">link to the audio</a> instead.</p>';
 $content .= "\n" . DENT . "</audio>\n";
-$content .= '</section>';
+$content .= '</div>';

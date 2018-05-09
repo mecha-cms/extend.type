@@ -50,7 +50,7 @@ if (!$src) {
 }
 
 // Wrap in a figure tag…
-$content = '<section class="gallery p" id="' . $id . '">';
+$content = '<div class="gallery p" id="' . $id . '">';
 foreach (array_unique($src) as $k => $v) {
     $t = To::text(Path::N($v));
     $alt[$k] = isset($alt[$k]) && $alt[$k] ? $alt[$k] : $t;
@@ -58,4 +58,4 @@ foreach (array_unique($src) as $k => $v) {
     $content .= "\n" . DENT . DENT . '<a href="' . $v . '" title="' . (isset($title[$k]) ? $title[$k] : $alt[$k]) . '" target="_blank"><img alt="' . $alt[$k] . '" src="' . To::thumbnail($v, $state['width'], $state['height']) . '"></a>';
     $content .= "\n" . DENT . "</figure>\n";
 }
-$content .= '</section>';
+$content .= '</div>';

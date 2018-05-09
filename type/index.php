@@ -2,18 +2,18 @@
 
 function fn_type($content, $lot = [], $that = null, $key = null) {
     // No `type` data has been set, skip!
-    if (!isset($lot['type'])) {
+    if (!$t = $that->get('type')) {
         return $content;
     // Filter does not exist, skip!
-    } else if (!$type = File::exist(__DIR__ . DS . 'lot' . DS . 'worker' . DS . ($t = __c2f__($lot['type'])) . '.php')) {
+    } else if (!$type = File::exist(__DIR__ . DS . 'lot' . DS . 'worker' . DS . ($t = __c2f__($t)) . '.php')) {
         return $content;
     }
     extract(Lot::get(null, [])); // Inherit global variable(s)…
     $content = n(trim($content)); // Trim white-space(s) and normalize line-break…
-    $id = $t . ':' . (isset($lot['id']) ? $lot['id'] : time());
-    $state = Extend::state(__DIR__, $t);
-    $f = isset($lot['path']) ? Path::F($lot['path']) : X;
-    $image = isset($lot['image']) ? $lot['image'] : null;
+    $id = $t . ':' . ($that->get('id') ?: time());
+    $state = Extend::state('type', $t);
+    $f = $that->get('path') ?: X;
+    $image = $that->get('image');
     require $type; // Require the filter…
     return str_replace("\n", N, $content);
 }

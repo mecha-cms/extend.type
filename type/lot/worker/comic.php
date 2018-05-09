@@ -50,9 +50,10 @@ if (!$src) {
 }
 
 // Wrap in a figure tag…
-$content = '<section class="comic p" id="' . $id . '">';
+$content = '<div class="comic p" id="' . $id . '">';
 $src = array_unique($src);
-if ($i = Request::get($state['q'], 1)) {
+$hash = !empty($state['hash']) ? '#' . $id : "";
+if ($i = HTTP::get($state['q'], 1)) {
     $ii = $i - 1;
     if ($i > 0 && isset($src[$ii])) {
         $content .= "\n" . DENT . '<figure class="image image-' . $i . '">';
@@ -64,7 +65,7 @@ if ($i = Request::get($state['q'], 1)) {
         $content .= "\n" . DENT . '<p>';
         if (!empty($state['a']['previous'])) {
             if ($i > 0 && isset($src[$ii - 1])) {
-                $content .= '<a class="a-previous" href="' . $url->current . HTTP::query([$state['q'] => $i - 1]) . '" rel="prev">' . $language->previous . '</a>';
+                $content .= '<a class="a-previous" href="' . $url->clean . HTTP::query([$state['q'] => $i - 1]) . $hash . '" rel="prev">' . $language->previous . '</a>';
             } else {
                 $content .= '<span class="a a-previous">' . $language->previous . '</span>';
             }
@@ -73,7 +74,7 @@ if ($i = Request::get($state['q'], 1)) {
             $d = $state['a']['range'] - 1;
             $k = count($src);
             if ($i - $d > 1) {
-                $content .= ' <a class="a-step a-step:1" href="' . $url->current . HTTP::query([$state['q'] => 1]) . '" rel="prev">1</a>';
+                $content .= ' <a class="a-step a-step:1" href="' . $url->clean . HTTP::query([$state['q'] => 1]) . $hash . '" rel="prev">1</a>';
                 if ($i - $d > 2) {
                     $content .= ' <span class="s">&#x2026;</span>';
                 }
@@ -84,19 +85,19 @@ if ($i = Request::get($state['q'], 1)) {
                 if ($j === $i) {
                     $content .= ' <span class="a a-step a-step:' . $j . '">' . $j . '</span>';
                 } else {
-                    $content .= ' <a class="a-step a-step:' . $j . '" href="' . $url->current . HTTP::query([$state['q'] => $j]) . '" rel="' . ($j < $i ? 'prev' : 'next') . '">' . $j . '</a>';
+                    $content .= ' <a class="a-step a-step:' . $j . '" href="' . $url->clean . HTTP::query([$state['q'] => $j]) . $hash . '" rel="' . ($j < $i ? 'prev' : 'next') . '">' . $j . '</a>';
                 }
             }
             if ($i + $d < $k) {
                 if ($i + $d < $k - 1) {
                     $content .= ' <span class="s">&#x2026;</span>';
                 }
-                $content .= ' <a class="a-step a-step:' . $k . '" href="' . $url->current . HTTP::query([$state['q'] => $k]) . '" rel="next">' . $k . '</a>';
+                $content .= ' <a class="a-step a-step:' . $k . '" href="' . $url->clean . HTTP::query([$state['q'] => $k]) . $hash . '" rel="next">' . $k . '</a>';
             }
         }
         if (!empty($state['a']['next'])) {
             if (isset($src[$i])) {
-                $content .= ' <a class="a-next" href="' . $url->current . HTTP::query([$state['q'] => $i + 1]) . '" rel="next">' . $language->next . '</a>';
+                $content .= ' <a class="a-next" href="' . $url->clean . HTTP::query([$state['q'] => $i + 1]) . $hash . '" rel="next">' . $language->next . '</a>';
             } else {
                 $content .= ' <span class="a a-next">' . $language->next . '</span>';
             }
@@ -106,4 +107,4 @@ if ($i = Request::get($state['q'], 1)) {
         $content .= "\n" . DENT . '<figure class="image image-0">' . To::sentence($language->_finded) . '</figure>';
     }
 }
-$content .= '</section>';
+$content .= '</div>';

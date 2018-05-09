@@ -16,20 +16,15 @@ if (strpos($content, '<video ') !== false && strpos($content, ' src="') !== fals
         }
         if (isset($video[2]['src'])) {
             $src[] = ($s = $video[2]['src']);
-            $type[] = isset($video[2]['type']) ? $video[2]['type'] : 'video/' . Anemon::alter(Path::X($s), [
-                'mov' => 'mp4',
-                'ogv' => 'ogg'
-            ]);
+            $x = Path::X($s);
+            $type[] = isset($video[2]['type']) ? $video[2]['type'] : (isset($state[$t]['mime'][$x]) ? $state[$t]['mime'][$x] : 'video/' . $x);
         }
         if (preg_match_all('#<source(?:\s[^<>]*?)?>#', $content, $m)) {
             foreach ($m[0] as $v) {
                 $source = HTML::apart($v);
                 if (isset($source[2]['src'])) {
                     $src[] = ($s = $source[2]['src']);
-                    $type[] = isset($source[2]['type']) ? $source[2]['type'] : 'video/' . Anemon::alter(Path::X($s), [
-                        'mov' => 'mp4',
-                        'ogv' => 'ogg'
-                    ]);
+                    $type[] = isset($source[2]['type']) ? $source[2]['type'] : (isset($state[$t]['mime'][$x]) ? $state[$t]['mime'][$x] : 'video/' . $x);
                 }
             }
         }
@@ -46,10 +41,7 @@ if (strpos($content, '<video ') !== false && strpos($content, ' src="') !== fals
             }
             if (isset($s)) {
                 $src[] = $s;
-                $type[] = 'video/' . Anemon::alter($x, [
-                    'mov' => 'mp4',
-                    'ogv' => 'ogg'
-                ]);
+                $type[] = isset($state[$t]['mime'][$x]) ? $state[$t]['mime'][$x] : 'video/' . $x;
             }
         }
     }
@@ -58,10 +50,8 @@ if (strpos($content, '<video ') !== false && strpos($content, ' src="') !== fals
     if (preg_match_all('#\b(?:https?://[^\s<>]+\.(?:' . str_replace(',', '|', VIDEO_X) . ')|data:video/[^\s<>]+;base64,[^\s<>]+)\b#i', $content, $m)) {
         $src = $m[0];
         foreach ($src as $v) {
-            $type[] = 'video/' . Anemon::alter(Path::X($v), [
-                'mov' => 'mp4',
-                'ogv' => 'ogg'
-            ]);
+            $x = Path::X($v);
+            $type[] = isset($state[$t]['mime'][$x]) ? $state[$t]['mime'][$x] : 'video/' . $x;
         }
     }
 }
@@ -74,11 +64,11 @@ if (!$src) {
 // Wrap in a `<video>` tag…
 $src = array_unique($src);
 $type = array_unique($type);
-$content  = '<section class="video p" id="' . $id . '">';
+$content  = '<div class="video p" id="' . $id . '">';
 $content .= "\n" . DENT . '<video' . ($class ? ' class="' . implode(' ', $class) . '"' : "") . ($image ? ' poster="' . $image . '"' : "") . ' controls>';
 foreach ($src as $k => $v) {
     $content .= "\n" . DENT . DENT . '<source src="' . $v . '"' . (isset($type[$k]) ? ' type="' . $type[$k] . '"' : "") . '>';
 }
 $content .= "\n" . DENT . DENT . '<p>Your browser doesn&#x2019;t support HTML5 video. Here is a <a href="' . $src[0] . '">link to the video</a> instead.</p>';
 $content .= "\n" . DENT . "</video>\n";
-$content .= '</section>';
+$content .= '</div>';
