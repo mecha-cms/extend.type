@@ -20,7 +20,6 @@ dependency:
  - Image
  - Link
  - Log
- - Poem
  - Quote
  - Video
 
@@ -38,8 +37,8 @@ title: Non-Stop Nyan Cat!
 type: Audio
 ...
 
-http://localhost/lot/asset/ogg/nyan.ogg
-http://localhost/lot/asset/mp3/nyan.mp3
+http://127.0.0.1/lot/asset/ogg/nyan.ogg
+http://127.0.0.1/lot/asset/mp3/nyan.mp3
 ~~~
 
 ##### Link
@@ -52,8 +51,8 @@ title: Non-Stop Nyan Cat!
 type: Audio
 ...
 
-<a href="http://localhost/lot/asset/ogg/nyan.ogg">Nyan OGG</a>
-<a href="http://localhost/lot/asset/mp3/nyan.mp3">Nyan MP3</a>
+<a href="http://127.0.0.1/lot/asset/ogg/nyan.ogg">Nyan OGG</a>
+<a href="http://127.0.0.1/lot/asset/mp3/nyan.mp3">Nyan MP3</a>
 ~~~
 
 ##### HTML
@@ -67,29 +66,59 @@ type: Audio
 ...
 
 <audio controls>
-  <source src="http://localhost/lot/asset/ogg/nyan.ogg" type="audio/ogg">
-  <source src="http://localhost/lot/asset/mp3/nyan.mp3" type="audio/mpeg">
+  <source src="http://127.0.0.1/lot/asset/ogg/nyan.ogg" type="audio/ogg">
+  <source src="http://127.0.0.1/lot/asset/mp3/nyan.mp3" type="audio/mpeg">
 </audio>
-~~~
-
-Result:
-
-~~~ .html
-<section class="audio p">
-  <audio controls>
-    <source src="http://localhost/lot/asset/ogg/nyan.ogg" type="audio/ogg">
-    <source src="http://localhost/lot/asset/mp3/nyan.mp3" type="audio/mpeg">
-  </audio>
-</section>
 ~~~
 
 #### Comic
 
-TODO
+Like the _Image_ type, but it has a pagination.
+
+##### Basic
+
+~~~ .yaml
+---
+title: Garfield & Friends
+type: Comic
+...
+
+http://127.0.0.1/lot/asset/png/garfield/1.png
+http://127.0.0.1/lot/asset/png/garfield/2.png
+http://127.0.0.1/lot/asset/png/garfield/3.png
+~~~
+
+##### HTML
+
+Use an `<img>` tag to store the image URL in its `src` attribute or use an `<a>` tag to store the image URL in its `href` attribute, so that when someday you decided to remove this extension, the result will fall back to the raw HTML markup gracefully.
+
+Link text will becomes the image `alt` value.
+
+~~~ .yaml
+---
+title: Garfield & Friends
+type: Comic
+...
+
+<img alt="1" src="http://127.0.0.1/lot/asset/png/people/1.png">
+<img alt="2" src="http://127.0.0.1/lot/asset/png/people/2.png">
+<img alt="3" src="http://127.0.0.1/lot/asset/png/people/3.png">
+~~~
+
+~~~ .yaml
+---
+title: Garfield & Friends
+type: Comic
+...
+
+<a href="http://127.0.0.1/lot/asset/png/people/1.png">1</a>
+<a href="http://127.0.0.1/lot/asset/png/people/2.png">2</a>
+<a href="http://127.0.0.1/lot/asset/png/people/3.png">3</a>
+~~~
 
 #### Gallery
 
-Like the _Image_ type, but it will show as multiple images.
+Like the _Comic_ type, but it will show as multiple images.
 
 ##### Basic
 
@@ -99,25 +128,9 @@ title: People
 type: Gallery
 ...
 
-http://localhost/lot/asset/png/people/1.png
-http://localhost/lot/asset/png/people/2.png
-http://localhost/lot/asset/png/people/3.png
-~~~
-
-Result:
-
-~~~ .html
-<section class="gallery p">
-  <figure class="image image-1">
-    <img alt="1" src="http://localhost/lot/asset/png/people/1.png">
-  </figure>
-  <figure class="image image-2">
-    <img alt="2" src="http://localhost/lot/asset/png/people/2.png">
-  </figure>
-  <figure class="image image-3">
-    <img alt="3" src="http://localhost/lot/asset/png/people/3.png">
-  </figure>
-</section>
+http://127.0.0.1/lot/asset/png/people/1.png
+http://127.0.0.1/lot/asset/png/people/2.png
+http://127.0.0.1/lot/asset/png/people/3.png
 ~~~
 
 ##### HTML
@@ -132,9 +145,9 @@ title: People
 type: Gallery
 ...
 
-<img alt="1" src="http://localhost/lot/asset/png/people/1.png">
-<img alt="2" src="http://localhost/lot/asset/png/people/2.png">
-<img alt="3" src="http://localhost/lot/asset/png/people/3.png">
+<img alt="1" src="http://127.0.0.1/lot/asset/png/people/1.png">
+<img alt="2" src="http://127.0.0.1/lot/asset/png/people/2.png">
+<img alt="3" src="http://127.0.0.1/lot/asset/png/people/3.png">
 ~~~
 
 ~~~ .yaml
@@ -143,9 +156,9 @@ title: People
 type: Gallery
 ...
 
-<a href="http://localhost/lot/asset/png/people/1.png">1</a>
-<a href="http://localhost/lot/asset/png/people/2.png">2</a>
-<a href="http://localhost/lot/asset/png/people/3.png">3</a>
+<a href="http://127.0.0.1/lot/asset/png/people/1.png">1</a>
+<a href="http://127.0.0.1/lot/asset/png/people/2.png">2</a>
+<a href="http://127.0.0.1/lot/asset/png/people/3.png">3</a>
 ~~~
 
 #### Image
@@ -160,14 +173,14 @@ title: Autumn
 type: Image
 ...
 
-http://localhost/lot/asset/png/autumn.png
+http://127.0.0.1/lot/asset/png/autumn.png
 ~~~
 
 Result:
 
 ~~~ .html
 <figure class="image">
-  <img alt="autumn" src="http://localhost/lot/asset/png/autumn.png">
+  <img alt="autumn" src="http://127.0.0.1/lot/asset/png/autumn.png">
 </figure>
 ~~~
 
@@ -182,16 +195,7 @@ description: There goes some description about this image.
 type: Image
 ...
 
-http://localhost/lot/asset/png/autumn.png
-~~~
-
-Result:
-
-~~~ .html
-<figure class="image">
-  <img alt="autumn" src="http://localhost/lot/asset/png/autumn.png">
-  <figcaption>There goes some description about this image.</figcaption>
-</figure>
+http://127.0.0.1/lot/asset/png/autumn.png
 ~~~
 
 ##### HTML
@@ -206,7 +210,7 @@ title: Autumn
 type: Image
 ...
 
-<img alt="autumn" src="http://localhost/lot/asset/png/autumn.png">
+<img alt="autumn" src="http://127.0.0.1/lot/asset/png/autumn.png">
 ~~~
 
 ~~~ .yaml
@@ -215,7 +219,7 @@ title: Autumn
 type: Image
 ...
 
-<a href="http://localhost/lot/asset/png/autumn.png">autumn</a>
+<a href="http://127.0.0.1/lot/asset/png/autumn.png">autumn</a>
 ~~~
 
 #### Link
@@ -236,12 +240,6 @@ type: Log
 OMG I'm so gay.
 ~~~
 
-Result:
-
-~~~ .html
-<p>OMG I'm so gay.</p>
-~~~
-
 #### Quote
 
 ##### Basic
@@ -254,14 +252,6 @@ type: Quote
 ...
 
 I forgive people but that doesn't mean I accept their behavior or trust them. I forgive them for me. So, I can let go and move on with my life. Forgiveness doesn't always mean a second chance.
-~~~
-
-Result:
-
-~~~ .html
-<blockquote class="quote">
-  <p>&#x201C;I forgive people but that doesn&#x2019;t mean I accept their behavior or trust them. I forgive them for me. So, I can let go and move on with my life. Forgiveness doesn&#x2019;t always mean a second chance.&#x201D;</p>
-</blockquote>
 ~~~
 
 ##### Citation
@@ -278,15 +268,6 @@ Jason Dawg:
 "I forgive people but that doesn't mean I accept their behavior or trust them. I forgive them for me. So, I can let go and move on with my life. Forgiveness doesn't always mean a second chance."
 ~~~
 
-Result:
-
-~~~ .html
-<blockquote class="quote">
-  <p>&#x201C;I forgive people but that doesn&#x2019;t mean I accept their behavior or trust them. I forgive them for me. So, I can let go and move on with my life. Forgiveness doesn&#x2019;t always mean a second chance.&#x201D;</p>
-  <p class="cite">&#x2014;Jason Dawg</p>
-</blockquote>
-~~~
-
 ##### Link
 
 Convert author name into clickable link by adding `link` data to the page header.
@@ -300,15 +281,6 @@ link: http://example.com
 Jason Dawg:
 
 "I forgive people but that doesn't mean I accept their behavior or trust them. I forgive them for me. So, I can let go and move on with my life. Forgiveness doesn't always mean a second chance."
-~~~
-
-Result:
-
-~~~ .html
-<blockquote class="quote">
-  <p>&#x201C;I forgive people but that doesn&#x2019;t mean I accept their behavior or trust them. I forgive them for me. So, I can let go and move on with my life. Forgiveness doesn&#x2019;t always mean a second chance.&#x201D;</p>
-  <p class="cite">&#x2014;<a href="http://example.com" rel="nofollow" target="_blank">Jason Dawg</a></p>
-</blockquote>
 ~~~
 
 ##### HTML
@@ -327,14 +299,6 @@ type: Quote
 </blockquote>
 ~~~
 
-Result:
-
-~~~ .html
-<blockquote class="quote test">
-  <p>"I forgive people but that doesn't mean I accept their behavior or trust them. I forgive them for me. So, I can let go and move on with my life. Forgiveness doesn't always mean a second chance."</p>
-</blockquote>
-~~~
-
 #### Video
 
 Convert video links into native HTML5 video player.
@@ -347,12 +311,12 @@ Set video URL as the page content and put the poster image in the `image` proper
 ---
 title: Non-Stop Nyan Cat!
 type: Video
-image: http://localhost/lot/asset/jpg/nyan.jpg
+image: http://127.0.0.1/lot/asset/jpg/nyan.jpg
 ...
 
-http://localhost/lot/asset/mp4/nyan.mp4
-http://localhost/lot/asset/webm/nyan.webm
-http://localhost/lot/asset/ogv/nyan.ogv
+http://127.0.0.1/lot/asset/mp4/nyan.mp4
+http://127.0.0.1/lot/asset/webm/nyan.webm
+http://127.0.0.1/lot/asset/ogv/nyan.ogv
 ~~~
 
 ##### Link
@@ -363,12 +327,12 @@ Set video link as the page content.
 ---
 title: Non-Stop Nyan Cat!
 type: Video
-image: http://localhost/lot/asset/jpg/nyan.jpg
+image: http://127.0.0.1/lot/asset/jpg/nyan.jpg
 ...
 
-<a href="http://localhost/lot/asset/mp4/nyan.mp4">Nyan MP4</a>
-<a href="http://localhost/lot/asset/webm/nyan.webm">Nyan WebM</a>
-<a href="http://localhost/lot/asset/ogv/nyan.ogv">Nyan OGG</a>
+<a href="http://127.0.0.1/lot/asset/mp4/nyan.mp4">Nyan MP4</a>
+<a href="http://127.0.0.1/lot/asset/webm/nyan.webm">Nyan WebM</a>
+<a href="http://127.0.0.1/lot/asset/ogv/nyan.ogv">Nyan OGG</a>
 ~~~
 
 ##### HTML
@@ -381,23 +345,11 @@ title: Non-Stop Nyan Cat!
 type: Video
 ...
 
-<video poster="http://localhost/lot/asset/jpg/nyan.jpg" controls>
-  <source src="http://localhost/lot/asset/mp4/nyan.mp4" type="video/mp4">
-  <source src="http://localhost/lot/asset/webm/nyan.webm" type="video/webm">
-  <source src="http://localhost/lot/asset/ogv/nyan.ogv" type="video/ogg">
+<video poster="http://127.0.0.1/lot/asset/jpg/nyan.jpg" controls>
+  <source src="http://127.0.0.1/lot/asset/mp4/nyan.mp4" type="video/mp4">
+  <source src="http://127.0.0.1/lot/asset/webm/nyan.webm" type="video/webm">
+  <source src="http://127.0.0.1/lot/asset/ogv/nyan.ogv" type="video/ogg">
 </video>
-~~~
-
-Result:
-
-~~~ .html
-<section class="video p">
-  <video poster="http://localhost/lot/asset/jpg/nyan.jpg" controls>
-    <source src="http://localhost/lot/asset/mp4/nyan.mp4" type="video/mp4">
-    <source src="http://localhost/lot/asset/webm/nyan.webm" type="video/webm">
-    <source src="http://localhost/lot/asset/ogv/nyan.ogv" type="video/ogg">
-  </video>
-</section>
 ~~~
 
 <!-- block:donate -->

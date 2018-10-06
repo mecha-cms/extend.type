@@ -79,8 +79,8 @@ if ($i = HTTP::get($state['q'], 1)) {
                     $content .= ' <span class="s">&#x2026;</span>';
                 }
             }
-			$begin = max(1, $i - $d);
-			$end = min($k, $i + $d);
+			      $begin = max(1, $i - $d);
+			      $end = min($k, $i + $d);
             for ($j = $begin; $j <= $end; ++$j) {
                 if ($j === $i) {
                     $content .= ' <span class="a a-step a-step:' . $j . '">' . $j . '</span>';
