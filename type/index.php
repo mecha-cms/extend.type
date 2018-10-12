@@ -1,11 +1,11 @@
 <?php namespace fn;
 
-function type($content, $lot = [], $that = null, $key = null) {
+function type(string $content = "", array $lot = []) {
     // No `type` data has been set, skip!
-    if (!$t = $that->get('type')) {
+    if (!$t = $this->type) {
         return $content;
     // Filter does not exist, skip!
-    } else if (!$type = \File::exist(__DIR__ . DS . 'lot' . DS . 'worker' . DS . ($t = \__c2f__($t)) . '.php')) {
+    } else if (!$type = \File::exist(__DIR__ . DS . 'lot' . DS . 'worker' . DS . ($t = \c2f($t)) . '.php')) {
         return $content;
     }
     extract(\Lot::get(null, [])); // Inherit global variable(s)…
