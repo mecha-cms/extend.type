@@ -62,7 +62,7 @@ if (!$src) {
 // Wrap in a `<audio>` tag…
 $src = array_unique($src);
 $type = array_unique($type);
-$class = array_unique(array_merge(['audio', 'p'], $class));
+$class = array_unique(concat(['audio', 'p'], $class));
 $content  = '<div class="audio p" id="' . $id . '">';
 $content .= "\n" . DENT . '<audio' . ($class ? ' class="' . implode(' ', $class) . '"' : "") . ' controls>';
 foreach ($src as $k => $v) {

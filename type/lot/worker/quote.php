@@ -14,7 +14,7 @@ if (strpos($content, '</p>') !== false) {
                     $quote[2]['id'] = $id;
                 }
                 if (isset($quote[2]['class[]'])) {
-                    $quote[2]['class[]'] = array_merge(['quote'], $quote[2]['class[]']);
+                    $quote[2]['class[]'] = concat(['quote'], $quote[2]['class[]']);
                     unset($quote[2]['class[]']);
                 } else {
                     $quote[2]['class[]'] = ['quote'];
